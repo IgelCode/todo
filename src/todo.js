@@ -1,4 +1,7 @@
+import { clearMainDOM, addSuccessDOM, submitProjectDOM } from "./domstuff.js";
+
 class Project {
+  items = [];
   constructor(title) {
     this.title = title;
   }
@@ -19,4 +22,20 @@ const Test = {
   priority: "high",
 };
 
-export { Project, Item, Test };
+function newProject() {
+  let projectTest = new Project("Workout");
+  project.projects.push(projectTest);
+}
+
+function submitProject() {
+  console.log("working submitProject");
+  submitProjectDOM();
+  clearMainDOM();
+  addSuccessDOM();
+}
+
+function submitItem() {
+  console.log("working submitItem");
+}
+
+export { Project, Item, newProject, submitProject, Test };
