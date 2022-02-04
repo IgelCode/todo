@@ -2,7 +2,8 @@ import { clearMainDOM, addSuccessDOM, submitProjectDOM } from "./domstuff.js";
 
 class Project {
   items = [];
-  constructor(title) {
+  constructor(id, title) {
+    this.id = id;
     this.title = title;
   }
 }
@@ -22,20 +23,29 @@ const Test = {
   priority: "high",
 };
 
-function newProject() {
-  let projectTest = new Project("Workout");
-  project.projects.push(projectTest);
-}
-
 function submitProject() {
   console.log("working submitProject");
-  submitProjectDOM();
+  const input = document.getElementById("Title:");
+  if (input.value.length > 20) {
+    alert("Input too long, maximum 20 characters");
+    return;
+  }
+  const id = submitProjectDOM();
+  let project = new Project(id, input.value);
+  window.projects.push(project);
+
   clearMainDOM();
   addSuccessDOM();
 }
 
 function submitItem() {
   console.log("working submitItem");
+  const title = document.getElementById("Title:");
+  const discription = document.getElementById("Discription:");
+  const duedate = document.getElementById("Due Date:");
+  const priority = document.getElementById("Priority:");
+  const item = new Item(title, discription, duedate, priority);
+  const project = window.projects.find();
 }
 
-export { Project, Item, newProject, submitProject, Test };
+export { Project, Item, newProject, submitProject, Test, submitItem };

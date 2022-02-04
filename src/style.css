@@ -1,6 +1,8 @@
 * {
   margin: 0;
   padding: 0;
+}
+html {
   height: 100%;
 }
 body {
@@ -43,7 +45,7 @@ main {
   margin-top: 50px;
   padding: 20px;
 }
-nav {
+#wrapper {
   background-color: rgb(153, 150, 150);
   display: flex;
   flex-direction: column;
@@ -51,7 +53,14 @@ nav {
   flex: 1;
   gap: 16px;
   align-items: center;
-  justify-content: flex-start;
+  overflow: auto;
+}
+
+nav > div,
+p {
+  display: block;
+  max-height: 25px;
+  padding: 4px;
 }
 #newproject {
   color: rgb(104, 62, 8);
@@ -71,8 +80,6 @@ input,
   align-items: center;
   justify-content: center;
   height: 40px;
-}
-.projectNav {
 }
 
 footer {

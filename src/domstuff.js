@@ -1,4 +1,11 @@
-import { Project, Item, newProject, submitProject, Test } from "./todo.js";
+import {
+  Project,
+  Item,
+  newProject,
+  submitProject,
+  submitItem,
+  Test,
+} from "./todo.js";
 import * as Index from "./index.js";
 
 const projectProperties = ["Title:"];
@@ -37,9 +44,12 @@ function itemCreationDOM() {
     text.className = "input";
     text.textContent = itemProperties[i];
     input.id = itemProperties[i];
+    console.log(itemProperties[i]);
+    input.dataset.id = i;
     main.appendChild(text);
     main.appendChild(input);
   }
+  main.firstChild.remove();
   const btn = document.createElement("button");
   btn.textContent = "Submit Project";
   btn.id = "submitbtn";
@@ -62,7 +72,19 @@ function submitProjectDOM() {
   const text = document.createElement("p");
   text.className = "projectNav";
   text.textContent = input.value;
+  text.setAttribute("data-id", Date.now());
+  console.log(text.getAttribute("data-id"));
   nav.appendChild(text);
+  text.addEventListener("click", openProject);
+  return text.getAttribute("data-id");
+}
+
+function openProject() {
+  clearMainDOM();
+  const btn = document.createElement("button");
+  main.appendChild(btn);
+  btn.textContent = "Add Item";
+  btn.addEventListener("click", itemCreationDOM);
 }
 
 /*
