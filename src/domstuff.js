@@ -79,10 +79,14 @@ function submitProjectDOM() {
   return text.getAttribute("data-id");
 }
 
-function openProject() {
+function openProject(event) {
+  const target = event.target;
+  const id = target.getAttribute("data-id");
+  console.log(event);
   clearMainDOM();
   const btn = document.createElement("button");
   main.appendChild(btn);
+  main.setAttribute("data-project-id", id);
   btn.textContent = "Add Item";
   btn.addEventListener("click", itemCreationDOM);
 }

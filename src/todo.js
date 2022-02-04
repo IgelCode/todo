@@ -45,7 +45,12 @@ function submitItem() {
   const duedate = document.getElementById("Due Date:");
   const priority = document.getElementById("Priority:");
   const item = new Item(title, discription, duedate, priority);
-  const project = window.projects.find();
+  const main = document.getElementById("main");
+  const id = main.getAttribute("data-project-id");
+  const project = window.projects.find(function (project) {
+    return id === project.id;
+  });
+  project.items.push(item);
 }
 
-export { Project, Item, newProject, submitProject, Test, submitItem };
+export { Project, Item, submitProject, Test, submitItem };
