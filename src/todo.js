@@ -1,4 +1,11 @@
-import { clearMainDOM, addSuccessDOM, submitProjectDOM } from "./domstuff.js";
+import {
+  clearMainDOM,
+  addSuccessDOM,
+  submitProjectDOM,
+  openProjectDOM,
+  itemCreationDOM,
+  appendItemsDOM,
+} from "./domstuff.js";
 
 class Project {
   items = [];
@@ -16,18 +23,11 @@ class Item {
   }
 }
 
-const Test = {
-  title: "Work out",
-  discription: "Do a Workout",
-  dueDate: "01.01.1984",
-  priority: "high",
-};
-
 function submitProject() {
   console.log("working submitProject");
   const input = document.getElementById("Title:");
-  if (input.value.length > 20) {
-    alert("Input too long, maximum 20 characters");
+  if (input.value.length > 20 || input.value.length < 3) {
+    alert("Input invalid, maximum 20 and minimum 3 characters");
     return;
   }
   const id = submitProjectDOM();
@@ -40,10 +40,14 @@ function submitProject() {
 
 function submitItem() {
   console.log("working submitItem");
-  const title = document.getElementById("Title:");
-  const discription = document.getElementById("Discription:");
-  const duedate = document.getElementById("Due Date:");
-  const priority = document.getElementById("Priority:");
+  const titleInput = document.getElementById("Title:");
+  const discriptionInput = document.getElementById("Discription:");
+  const duedateInput = document.getElementById("Due Date:");
+  const priorityInput = document.getElementById("Priority:");
+  const title = titleInput.value;
+  const discription = discriptionInput.value;
+  const duedate = duedateInput.value;
+  const priority = priorityInput.value;
   const item = new Item(title, discription, duedate, priority);
   const main = document.getElementById("main");
   const id = main.getAttribute("data-project-id");
@@ -51,6 +55,13 @@ function submitItem() {
     return id === project.id;
   });
   project.items.push(item);
+  clearMainDOM();
+  const btn = document.createElement("button");
+  main.appendChild(btn);
+  main.setAttribute("data-project-id", id);
+  btn.textContent = "Add Item";
+  btn.addEventListener("click", itemCreationDOM);
+  appendItemsDOM();
 }
 
-export { Project, Item, submitProject, Test, submitItem };
+export { Project, Item, submitProject, submitItem };

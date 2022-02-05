@@ -4,7 +4,6 @@ import {
   newProject,
   submitProject,
   submitItem,
-  Test,
 } from "./todo.js";
 import * as Index from "./index.js";
 
@@ -38,6 +37,7 @@ function projectCreationDOM() {
 }
 
 function itemCreationDOM() {
+  clearMainDOM();
   for (let i = 0; i < itemProperties.length; i++) {
     const input = document.createElement("input");
     const text = document.createElement("p");
@@ -49,13 +49,63 @@ function itemCreationDOM() {
     main.appendChild(text);
     main.appendChild(input);
   }
-  main.firstChild.remove();
   const btn = document.createElement("button");
-  btn.textContent = "Submit Project";
+  btn.textContent = "Submit Item";
   btn.id = "submitbtn";
   main.appendChild(btn);
   const submitbtn = document.getElementById("submitbtn");
   submitbtn.addEventListener("click", submitItem);
+}
+
+function appendItemsDOM() {
+  const id = main.getAttribute("data-project-id");
+  const project = window.projects.find(function (project) {
+    return id === project.id;
+  });
+  const itemTitle = document.createElement("td");
+  const itemDiscription = document.createElement("td");
+  const itemDueDate = document.createElement("td");
+  const itemPriority = document.createElement("td");
+  addCleanTableDOM();
+  for (let j = 0; j < project.items.length; j++) {
+    console.log(project.items);
+    const table = document.getElementById("table");
+    const tr = document.createElement("tr");
+
+    itemTitle.textContent = project.items[j].title;
+    itemDiscription.textContent = project.items[j].discription;
+    itemDueDate.textContent = project.items[j].dueDate;
+    itemPriority.textContent = project.items[j].priority;
+
+    table.appendChild(tr);
+    tr.appendChild(itemTitle);
+    tr.appendChild(itemDiscription);
+    tr.appendChild(itemDueDate);
+    tr.appendChild(itemPriority);
+  }
+}
+
+function addCleanTableDOM() {
+  const table = document.createElement("table");
+  const tr = document.createElement("tr");
+  const tableTitle = document.createElement("th");
+  const tableDiscription = document.createElement("th");
+  const tableDueDate = document.createElement("th");
+  const tablePriority = document.createElement("th");
+
+  main.appendChild(table);
+  table.appendChild(tr);
+  table.id = "table";
+
+  tableTitle.textContent = "Title";
+  tableDiscription.textContent = "Discription";
+  tableDueDate.textContent = "Due Date";
+  tablePriority.textContent = "Priority";
+
+  tr.appendChild(tableTitle);
+  tr.appendChild(tableDiscription);
+  tr.appendChild(tableDueDate);
+  tr.appendChild(tablePriority);
 }
 
 function addSuccessDOM() {
@@ -75,20 +125,20 @@ function submitProjectDOM() {
   text.setAttribute("data-id", Date.now());
   console.log(text.getAttribute("data-id"));
   nav.appendChild(text);
-  text.addEventListener("click", openProject);
+  text.addEventListener("click", openProjectDOM);
   return text.getAttribute("data-id");
 }
 
-function openProject(event) {
+function openProjectDOM(event) {
   const target = event.target;
   const id = target.getAttribute("data-id");
-  console.log(event);
   clearMainDOM();
   const btn = document.createElement("button");
   main.appendChild(btn);
   main.setAttribute("data-project-id", id);
   btn.textContent = "Add Item";
   btn.addEventListener("click", itemCreationDOM);
+  appendItemsDOM();
 }
 
 /*
@@ -116,4 +166,6 @@ export {
   newProjectDOM,
   addSuccessDOM,
   submitProjectDOM,
+  openProjectDOM,
+  appendItemsDOM,
 };

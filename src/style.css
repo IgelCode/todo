@@ -62,6 +62,17 @@ p {
   max-height: 25px;
   padding: 4px;
 }
+table {
+  width: 90%;
+}
+th {
+  width: 18%;
+}
+td {
+  background-color: white;
+}
+tr {
+}
 #newproject {
   color: rgb(104, 62, 8);
   font-weight: bold;
