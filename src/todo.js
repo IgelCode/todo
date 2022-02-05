@@ -24,7 +24,6 @@ class Item {
 }
 
 function submitProject() {
-  console.log("working submitProject");
   const input = document.getElementById("Title:");
   if (input.value.length > 20 || input.value.length < 3) {
     alert("Input invalid, maximum 20 and minimum 3 characters");
@@ -39,7 +38,6 @@ function submitProject() {
 }
 
 function submitItem() {
-  console.log("working submitItem");
   const titleInput = document.getElementById("Title:");
   const discriptionInput = document.getElementById("Discription:");
   const duedateInput = document.getElementById("Due Date:");

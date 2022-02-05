@@ -44,7 +44,6 @@ function itemCreationDOM() {
     text.className = "input";
     text.textContent = itemProperties[i];
     input.id = itemProperties[i];
-    console.log(itemProperties[i]);
     input.dataset.id = i;
     main.appendChild(text);
     main.appendChild(input);
@@ -62,13 +61,15 @@ function appendItemsDOM() {
   const project = window.projects.find(function (project) {
     return id === project.id;
   });
-  const itemTitle = document.createElement("td");
-  const itemDiscription = document.createElement("td");
-  const itemDueDate = document.createElement("td");
-  const itemPriority = document.createElement("td");
+
   addCleanTableDOM();
+
   for (let j = 0; j < project.items.length; j++) {
-    console.log(project.items);
+    const itemTitle = document.createElement("td");
+    const itemDiscription = document.createElement("td");
+    const itemDueDate = document.createElement("td");
+    const itemPriority = document.createElement("td");
+    const del = document.createElement("td");
     const table = document.getElementById("table");
     const tr = document.createElement("tr");
 
@@ -76,12 +77,25 @@ function appendItemsDOM() {
     itemDiscription.textContent = project.items[j].discription;
     itemDueDate.textContent = project.items[j].dueDate;
     itemPriority.textContent = project.items[j].priority;
+    del.textContent = "Delete";
+    del.dataset.lul = j;
 
     table.appendChild(tr);
     tr.appendChild(itemTitle);
     tr.appendChild(itemDiscription);
     tr.appendChild(itemDueDate);
     tr.appendChild(itemPriority);
+    tr.appendChild(del);
+    del.addEventListener("click", function delItem() {
+      project.items.splice(del.dataset.lul, 1);
+      table.removeChild(tr);
+      while (table.firstChild) {
+        table.firstChild.remove();
+      }
+      clearMainDOM();
+      appendAddButtonDOM();
+      appendItemsDOM();
+    });
   }
 }
 
@@ -123,7 +137,6 @@ function submitProjectDOM() {
   text.className = "projectNav";
   text.textContent = input.value;
   text.setAttribute("data-id", Date.now());
-  console.log(text.getAttribute("data-id"));
   nav.appendChild(text);
   text.addEventListener("click", openProjectDOM);
   return text.getAttribute("data-id");
@@ -133,12 +146,16 @@ function openProjectDOM(event) {
   const target = event.target;
   const id = target.getAttribute("data-id");
   clearMainDOM();
+  main.setAttribute("data-project-id", id);
+  appendAddButtonDOM();
+  appendItemsDOM();
+}
+
+function appendAddButtonDOM() {
   const btn = document.createElement("button");
   main.appendChild(btn);
-  main.setAttribute("data-project-id", id);
   btn.textContent = "Add Item";
   btn.addEventListener("click", itemCreationDOM);
-  appendItemsDOM();
 }
 
 /*
