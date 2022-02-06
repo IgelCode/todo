@@ -152,10 +152,30 @@ function openProjectDOM(event) {
 }
 
 function appendAddButtonDOM() {
-  const btn = document.createElement("button");
-  main.appendChild(btn);
-  btn.textContent = "Add Item";
-  btn.addEventListener("click", itemCreationDOM);
+  const addbtn = document.createElement("button");
+  const delbtn = document.createElement("button");
+  main.appendChild(addbtn);
+  addbtn.textContent = "Add Item";
+  addbtn.addEventListener("click", itemCreationDOM);
+  main.appendChild(delbtn);
+  delbtn.textContent = "Delete Project";
+  delbtn.addEventListener("click", deleteProjectDOM);
+}
+
+function deleteProjectDOM() {
+  const nav = document.getElementById("nav");
+  const navChildren = document.getElementById("nav").childNodes;
+
+  for (let i = 0; i < navChildren.length; i++) {
+    console.log(navChildren[5].getAttribute("data-id"));
+    const main = document.getElementById("main");
+    let navid = navChildren[i].getAttribute("data-id");
+    const mainid = main.getAttribute("data-project-id");
+
+    if (mainid === navid) {
+      nav.removeChild(navChildren[i]);
+    }
+  }
 }
 
 /*
