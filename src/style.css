@@ -55,6 +55,10 @@ main {
   align-items: center;
   overflow: auto;
 }
+#btnwrap {
+  display: flex;
+  gap: 50px;
+}
 
 nav > div,
 p {

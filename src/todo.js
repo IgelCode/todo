@@ -5,6 +5,7 @@ import {
   openProjectDOM,
   itemCreationDOM,
   appendItemsDOM,
+  appendButtonsDOM,
 } from "./domstuff.js";
 
 class Project {
@@ -54,11 +55,7 @@ function submitItem() {
   });
   project.items.push(item);
   clearMainDOM();
-  const btn = document.createElement("button");
-  main.appendChild(btn);
-  main.setAttribute("data-project-id", id);
-  btn.textContent = "Add Item";
-  btn.addEventListener("click", itemCreationDOM);
+  appendButtonsDOM();
   appendItemsDOM();
 }
 

@@ -93,8 +93,7 @@ function appendItemsDOM() {
         table.firstChild.remove();
       }
       clearMainDOM();
-      appendAddButtonDOM();
-      appendItemsDOM();
+      appendButtonsDOM();
     });
   }
 }
@@ -147,27 +146,29 @@ function openProjectDOM(event) {
   const id = target.getAttribute("data-id");
   clearMainDOM();
   main.setAttribute("data-project-id", id);
-  appendAddButtonDOM();
+  appendButtonsDOM();
   appendItemsDOM();
 }
 
-function appendAddButtonDOM() {
+function appendButtonsDOM() {
   const addbtn = document.createElement("button");
-  const delbtn = document.createElement("button");
-  main.appendChild(addbtn);
+  const btnwrap = document.createElement("div");
+  btnwrap.id = "btnwrap";
+  main.appendChild(btnwrap);
+  btnwrap.appendChild(addbtn);
   addbtn.textContent = "Add Item";
   addbtn.addEventListener("click", itemCreationDOM);
-  main.appendChild(delbtn);
+  const delbtn = document.createElement("button");
+  btnwrap.appendChild(delbtn);
   delbtn.textContent = "Delete Project";
   delbtn.addEventListener("click", deleteProjectDOM);
 }
 
 function deleteProjectDOM() {
   const nav = document.getElementById("nav");
-  const navChildren = document.getElementById("nav").childNodes;
+  const navChildren = document.getElementById("nav").children;
 
   for (let i = 0; i < navChildren.length; i++) {
-    console.log(navChildren[5].getAttribute("data-id"));
     const main = document.getElementById("main");
     let navid = navChildren[i].getAttribute("data-id");
     const mainid = main.getAttribute("data-project-id");
@@ -176,6 +177,7 @@ function deleteProjectDOM() {
       nav.removeChild(navChildren[i]);
     }
   }
+  clearMainDOM();
 }
 
 /*
@@ -205,4 +207,5 @@ export {
   submitProjectDOM,
   openProjectDOM,
   appendItemsDOM,
+  appendButtonsDOM,
 };
