@@ -23,9 +23,8 @@ function projectCreationDOM() {
     const input = document.createElement("input");
     const text = document.createElement("p");
     text.className = "input";
-    text.textContent = projectProperties[i];
+    text.textContent = "What will be the name of your project?";
     input.id = projectProperties[i];
-    console.log(input.id);
     main.appendChild(text);
     main.appendChild(input);
   }
@@ -212,7 +211,9 @@ function deleteProjectDOM() {
     if (mainid === navid) {
       nav.removeChild(navChildren[i]);
     }
+    projects.splice(navid, 1);
   }
+
   clearMainDOM();
 }
 
