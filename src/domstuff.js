@@ -6,6 +6,7 @@ import {
   submitItem,
 } from "./todo.js";
 import * as Index from "./index.js";
+import { Datepicker } from "vanillajs-datepicker";
 
 const projectProperties = ["Title:"];
 const itemProperties = ["Title:", "Discription:", "Due Date:", "Priority:"];
@@ -48,6 +49,11 @@ function itemCreationDOM() {
     main.appendChild(text);
     main.appendChild(input);
   }
+  //Datepicker
+  const elem = document.querySelector('input[id="Due Date:"]');
+  const datepicker = new Datepicker(elem);
+
+  //Submit Button
   const btn = document.createElement("button");
   btn.textContent = "Submit Item";
   btn.id = "submitbtn";
@@ -70,15 +76,22 @@ function appendItemsDOM() {
     const itemDueDate = document.createElement("td");
     const itemPriority = document.createElement("td");
     const del = document.createElement("td");
+    const edit = document.createElement("td");
     const table = document.getElementById("table");
     const tr = document.createElement("tr");
 
     itemTitle.textContent = project.items[j].title;
+    itemTitle.dataset.lul = j;
     itemDiscription.textContent = project.items[j].discription;
+    itemDiscription.dataset.lul = j;
     itemDueDate.textContent = project.items[j].dueDate;
+    itemDueDate.dataset.lul = j;
     itemPriority.textContent = project.items[j].priority;
+    itemPriority.dataset.lul = j;
     del.textContent = "Delete";
     del.dataset.lul = j;
+    edit.textContent = "Edit";
+    edit.dataset.lul = j;
 
     table.appendChild(tr);
     tr.appendChild(itemTitle);
@@ -86,7 +99,12 @@ function appendItemsDOM() {
     tr.appendChild(itemDueDate);
     tr.appendChild(itemPriority);
     tr.appendChild(del);
-    del.addEventListener("click", function delItem() {
+    tr.appendChild(edit);
+
+    //Delete an item
+    del.addEventListener("click", delItem);
+
+    function delItem() {
       project.items.splice(del.dataset.lul, 1);
       table.removeChild(tr);
       while (table.firstChild) {
@@ -94,7 +112,25 @@ function appendItemsDOM() {
       }
       clearMainDOM();
       appendButtonsDOM();
-    });
+      appendItemsDOM();
+    }
+    //Edit an Item
+    edit.addEventListener("click", editItem);
+
+    function editItem() {
+      itemCreationDOM();
+      const inputTitle = document.getElementById("Title:");
+      const inputDiscription = document.getElementById("Discription:");
+      const inputDueDate = document.getElementById("Due Date:");
+      const inputPriority = document.getElementById("Priority:");
+
+      inputTitle.value = project.items[j].title;
+      inputDiscription.value = project.items[j].discription;
+      inputDueDate.value = project.items[j].dueDate;
+      inputPriority.value = project.items[j].priority;
+      project.items.splice(edit.dataset.lul, 1);
+      project.items[j].id = edit.dataset.lul;
+    }
   }
 }
 

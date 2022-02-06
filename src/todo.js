@@ -53,7 +53,7 @@ function submitItem() {
   const project = window.projects.find(function (project) {
     return id === project.id;
   });
-  project.items.push(item);
+  project.items.unshift(item);
   clearMainDOM();
   appendButtonsDOM();
   appendItemsDOM();
