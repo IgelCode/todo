@@ -24,6 +24,7 @@ function projectCreationDOM() {
     const text = document.createElement("p");
     text.className = "input";
     text.textContent = "What will be the name of your project?";
+    input.placeholder = "Project Title";
     input.id = projectProperties[i];
     main.appendChild(text);
     main.appendChild(input);
@@ -35,18 +36,20 @@ function projectCreationDOM() {
   const submitbtn = document.getElementById("submitbtn");
   submitbtn.addEventListener("click", submitProject);
 }
-
+//Inputs for the Item, next time: TRY OUT <fieldset>!!! Looks also nice.
 function itemCreationDOM() {
   clearMainDOM();
+  const fieldset = document.createElement("fieldset");
+  const legend = document.createElement("legend");
+  legend.textContent = "Create an Item";
+  main.appendChild(fieldset);
+  fieldset.appendChild(legend);
   for (let i = 0; i < itemProperties.length; i++) {
     const input = document.createElement("input");
-    const text = document.createElement("p");
-    text.className = "input";
-    text.textContent = itemProperties[i];
+    input.placeholder = itemProperties[i];
     input.id = itemProperties[i];
     input.dataset.id = i;
-    main.appendChild(text);
-    main.appendChild(input);
+    fieldset.appendChild(input);
   }
   //Datepicker
   const elem = document.querySelector('input[id="Due Date:"]');
@@ -134,7 +137,7 @@ function appendItemsDOM() {
     }
   }
 }
-
+//Adding a table
 function addCleanTableDOM() {
   const table = document.createElement("table");
   const tr = document.createElement("tr");
