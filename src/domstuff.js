@@ -88,8 +88,10 @@ function appendItemsDOM() {
     itemPriority.textContent = project.items[j].priority;
     itemPriority.dataset.lul = j;
     del.textContent = "Delete";
+    del.id = "delbtn";
     del.dataset.lul = j;
     edit.textContent = "Edit";
+    edit.id = "editbtn";
     edit.dataset.lul = j;
 
     table.appendChild(tr);
