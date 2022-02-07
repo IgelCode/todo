@@ -33,6 +33,7 @@ function submitProject() {
   const id = submitProjectDOM();
   let project = new Project(id, input.value);
   window.projects.push(project);
+  sessionStorage.setItem("projects", JSON.stringify(window.projects));
 
   clearMainDOM();
   addSuccessDOM();
