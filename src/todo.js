@@ -55,6 +55,7 @@ function submitItem() {
     return id === project.id;
   });
   project.items.unshift(item);
+  sessionStorage.setItem("projects", JSON.stringify(window.projects));
   clearMainDOM();
   appendButtonsDOM();
   appendItemsDOM();

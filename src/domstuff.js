@@ -110,6 +110,8 @@ function appendItemsDOM() {
 
     function delItem() {
       project.items.splice(del.dataset.lul, 1);
+      sessionStorage.setItem("projects", JSON.stringify(window.projects));
+
       table.removeChild(tr);
       while (table.firstChild) {
         table.firstChild.remove();
@@ -206,34 +208,18 @@ function appendButtonsDOM() {
 
 function deleteProjectDOM() {
   const nav = document.getElementById("nav");
-  const navChildren = document.getElementById("nav").children;
-
-  for (let i = 0; i < navChildren.length; i++) {
-    const main = document.getElementById("main");
-    let navid = navChildren[i].getAttribute("data-id");
-    const mainid = main.getAttribute("data-project-id");
-
-    if (mainid === navid) {
-      nav.removeChild(navChildren[i]);
-    }
-    projects.splice(navid, 1);
-  }
+  const navChildren = document.querySelectorAll(".projectNav");
+  const main = document.getElementById("main");
+  const id = main.getAttribute("data-project-id");
+  const projectIndex = window.projects.findIndex(function (project) {
+    return id === project.id;
+  });
+  window.projects.splice(projectIndex, 1);
+  nav.removeChild(navChildren[projectIndex]);
+  sessionStorage.setItem("projects", JSON.stringify(window.projects));
 
   clearMainDOM();
 }
-
-/*
-let workoutProject = new Project("Workout");
-
-let legday = new Item(
-  itemProperties[0],
-  itemProperties[1],
-  itemProperties[2],
-  itemProperties[3]
-);
-
-urlaubProject.items.push(hotel); 
-*/
 
 function newProjectDOM() {
   clearMainDOM();
