@@ -1,11 +1,5 @@
 import "./style.css";
-import { Project, Item } from "./todo.js";
-import {
-  clearMainDOM,
-  projectCreationDOM,
-  newProjectDOM,
-  openProjectDOM,
-} from "./domstuff.js";
+import { newProjectDOM, openProjectDOM } from "./domstuff.js";
 
 const newProjectBtn = document.getElementById("newproject");
 newProjectBtn.addEventListener("click", newProjectDOM);

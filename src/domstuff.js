@@ -1,11 +1,4 @@
-import {
-  Project,
-  Item,
-  newProject,
-  submitProject,
-  submitItem,
-} from "./todo.js";
-import * as Index from "./index.js";
+import { submitProject, submitItem } from "./todo.js";
 import { Datepicker } from "vanillajs-datepicker";
 
 const projectProperties = ["Title:"];

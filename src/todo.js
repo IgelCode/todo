@@ -2,8 +2,6 @@ import {
   clearMainDOM,
   addSuccessDOM,
   submitProjectDOM,
-  openProjectDOM,
-  itemCreationDOM,
   appendItemsDOM,
   appendButtonsDOM,
 } from "./domstuff.js";
