@@ -43,7 +43,6 @@ main {
   justify-content: center;
   flex: 0;
   margin-top: 50px;
-  padding: 20px;
 }
 #wrapper {
   background-color: rgb(153, 150, 150);
@@ -58,8 +57,11 @@ main {
   display: flex;
   gap: 50px;
 }
+.projectNav {
+  text-align: center;
+}
 .projectNav:hover {
-  color: coral;
+  color: rgb(54, 36, 216);
   cursor: pointer;
 }
 nav {
@@ -87,10 +89,11 @@ td {
 }
 
 #newproject {
-  color: rgb(104, 62, 8);
   font-weight: bold;
-  font-size: 20px;
-  max-height: 50px;
+  padding: 16px 32px;
+  cursor: pointer;
+  background-color: rgb(238, 235, 54);
+  border-radius: 50%;
 }
 #newproject:hover {
   color: coral;
@@ -108,6 +111,9 @@ button {
   text-decoration: underline;
   font-weight: 600;
   max-height: 50px;
+  font-size: large;
+  margin-top: 20px;
+  text-align: center;
 }
 fieldset {
   width: 40%;
